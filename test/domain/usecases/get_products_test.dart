@@ -5,10 +5,9 @@ import 'package:tech_test_atto/domain/repositories/product_repositories.dart';
 import 'package:tech_test_atto/domain/usecases/get_products.dart';
 import 'package:mockito/annotations.dart';
 
-import '../../dummy_data/dummy_product.dart';
-import 'get_products_test.mocks.dart';
+import '../../dummy_data/dummy_products.dart';
+import '../../helpers/test_helper.mocks.dart';
 
-@GenerateMocks([ProductRepositories])
 void main() {
   late GetProducts getProducts;
   late MockProductRepositories mockProductRepositories;
