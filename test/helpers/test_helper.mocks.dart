@@ -4,14 +4,17 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
-import 'dart:convert' as _i8;
-import 'dart:typed_data' as _i9;
+import 'dart:convert' as _i10;
+import 'dart:typed_data' as _i11;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:tech_test_atto/data/datasources/product_remote_data_source.dart'
+    as _i8;
+import 'package:tech_test_atto/data/models/product_model.dart' as _i9;
 import 'package:tech_test_atto/domain/entities/product.dart' as _i7;
-import 'package:tech_test_atto/domain/repositories/product_repositories.dart'
+import 'package:tech_test_atto/domain/repositories/product_repository.dart'
     as _i4;
 import 'package:tech_test_atto/utils/failure.dart' as _i6;
 
@@ -57,12 +60,11 @@ class _FakeStreamedResponse_2 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [ProductRepositories].
+/// A class which mocks [ProductRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProductRepositories extends _i1.Mock
-    implements _i4.ProductRepositories {
-  MockProductRepositories() {
+class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
+  MockProductRepository() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -83,6 +85,26 @@ class MockProductRepositories extends _i1.Mock
           ),
         )),
       ) as _i5.Future<_i2.Either<_i6.Failure, List<_i7.Product>>>);
+}
+
+/// A class which mocks [ProductRemoteDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProductRemoteDataSource extends _i1.Mock
+    implements _i8.ProductRemoteDataSource {
+  MockProductRemoteDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<List<_i9.ProductModel>> getProducts() => (super.noSuchMethod(
+        Invocation.method(
+          #getProducts,
+          [],
+        ),
+        returnValue:
+            _i5.Future<List<_i9.ProductModel>>.value(<_i9.ProductModel>[]),
+      ) as _i5.Future<List<_i9.ProductModel>>);
 }
 
 /// A class which mocks [Client].
@@ -138,7 +160,7 @@ class MockHttpClient extends _i1.Mock implements _i3.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i8.Encoding? encoding,
+    _i10.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -168,7 +190,7 @@ class MockHttpClient extends _i1.Mock implements _i3.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i8.Encoding? encoding,
+    _i10.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -198,7 +220,7 @@ class MockHttpClient extends _i1.Mock implements _i3.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i8.Encoding? encoding,
+    _i10.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -228,7 +250,7 @@ class MockHttpClient extends _i1.Mock implements _i3.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i8.Encoding? encoding,
+    _i10.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -267,7 +289,7 @@ class MockHttpClient extends _i1.Mock implements _i3.Client {
         returnValue: _i5.Future<String>.value(''),
       ) as _i5.Future<String>);
   @override
-  _i5.Future<_i9.Uint8List> readBytes(
+  _i5.Future<_i11.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -277,8 +299,8 @@ class MockHttpClient extends _i1.Mock implements _i3.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i5.Future<_i9.Uint8List>.value(_i9.Uint8List(0)),
-      ) as _i5.Future<_i9.Uint8List>);
+        returnValue: _i5.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
+      ) as _i5.Future<_i11.Uint8List>);
   @override
   _i5.Future<_i3.StreamedResponse> send(_i3.BaseRequest? request) =>
       (super.noSuchMethod(

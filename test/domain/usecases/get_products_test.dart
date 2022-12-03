@@ -8,16 +8,16 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late GetProducts getProducts;
-  late MockProductRepositories mockProductRepositories;
+  late MockProductRepository mockProductRepository;
 
   setUp(() {
-    mockProductRepositories = MockProductRepositories();
-    getProducts = GetProducts(mockProductRepositories);
+    mockProductRepository = MockProductRepository();
+    getProducts = GetProducts(mockProductRepository);
   });
 
   test('should get product list from repositories', () async {
     // arrange
-    when(mockProductRepositories.getProducts())
+    when(mockProductRepository.getProducts())
         .thenAnswer((_) async => const Right(testProductList));
 
     // act
