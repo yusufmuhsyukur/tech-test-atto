@@ -18,6 +18,9 @@ const ProductModel testProductModel = ProductModel(
   title: "title",
   completed: false,
 );
+
+const testProductModelList = [testProductModel];
+
 const ProductResponse testProductResponse = ProductResponse(
   productList: [
     testProductModel,

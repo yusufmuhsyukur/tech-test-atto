@@ -9,7 +9,7 @@ abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getProducts();
 }
 
-class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
+class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   ProductRemoteDataSourceImpl({
     required this.client,
     required this.baseUrl,
