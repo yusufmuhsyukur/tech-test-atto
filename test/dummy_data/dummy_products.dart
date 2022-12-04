@@ -6,11 +6,11 @@ import 'package:tech_test_atto/domain/entities/product.dart';
 
 import '../json_reader.dart';
 
-const Product testProduct = Product(
+final Product testProduct = Product(
   id: 1,
   name: 'title',
 );
-const testProductList = [testProduct];
+final testProductList = [testProduct];
 
 const ProductModel testProductModel = ProductModel(
   userId: 1,

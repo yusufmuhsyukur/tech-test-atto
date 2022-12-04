@@ -18,12 +18,12 @@ void main() {
   test('should get product list from repositories', () async {
     // arrange
     when(mockProductRepository.getProducts())
-        .thenAnswer((_) async => const Right(testProductList));
+        .thenAnswer((_) async => Right(testProductList));
 
     // act
     final result = await getProducts.execute();
 
     // assert
-    expect(result, const Right(testProductList));
+    expect(result, Right(testProductList));
   });
 }
