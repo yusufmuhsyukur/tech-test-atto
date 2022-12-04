@@ -13,7 +13,7 @@ class Page2 extends StatefulWidget {
   final List<Product> checkoutList;
   final Function(bool) isPurchased;
 
-  static const ROUTE_NAME = '/page2';
+  static const routeName = '/page2';
 
   @override
   State<Page2> createState() => _Page2State();
@@ -32,14 +32,14 @@ class _Page2State extends State<Page2> {
   }
 
   Widget _buildLoading() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
   Widget _buildProductList(List<Product> productList) {
     if (productList.isEmpty) {
-      return Center(
+      return const Center(
         child: Text('Checkout List is Empty'),
       );
     }
@@ -67,7 +67,7 @@ class _Page2State extends State<Page2> {
 
   Widget _buildError(String message) {
     return Center(
-      key: Key('error_message'),
+      key: const Key('error_message'),
       child: Text(message),
     );
   }
@@ -86,7 +86,7 @@ class _Page2State extends State<Page2> {
                   product.name ?? '-',
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Row(
                 children: [
                   Text(
@@ -106,19 +106,19 @@ class _Page2State extends State<Page2> {
       builder: (context, data, child) {
         return Row(
           children: [
-            Text(
+            const Text(
               'totalQty',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             Text(
               data.totalQtyCheckoutList().toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
@@ -145,8 +145,8 @@ class _Page2State extends State<Page2> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Buy'),
+            children: const [
+              Text('Buy'),
             ],
           ),
         ),
@@ -159,12 +159,12 @@ class _Page2State extends State<Page2> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text(
+        title: const Text(
           'Page 2',
         ),
         actions: [
           _buildTotalCheckoutQty(),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
         automaticallyImplyLeading: true,
       ),

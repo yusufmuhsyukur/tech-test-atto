@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         title: 'Flutter Demo',
-        initialRoute: Page1.ROUTE_NAME,
+        initialRoute: Page1.routeName,
         onGenerateRoute: router.Router.onGenerateRoute,
       ),
     );

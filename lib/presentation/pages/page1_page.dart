@@ -8,7 +8,7 @@ import 'package:tech_test_atto/utils/state_enum.dart';
 class Page1 extends StatefulWidget {
   const Page1({super.key});
 
-  static const ROUTE_NAME = '/page1';
+  static const routeName = '/page1';
 
   @override
   State<Page1> createState() => _Page1State();
@@ -27,7 +27,7 @@ class _Page1State extends State<Page1> {
   }
 
   Widget _buildLoading() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
@@ -56,7 +56,7 @@ class _Page1State extends State<Page1> {
 
   Widget _buildError(String message) {
     return Center(
-      key: Key('error_message'),
+      key: const Key('error_message'),
       child: Text(message),
     );
   }
@@ -75,7 +75,7 @@ class _Page1State extends State<Page1> {
                   product.name ?? '-',
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Row(
                 children: [
                   IconButton(
@@ -83,7 +83,7 @@ class _Page1State extends State<Page1> {
                       Provider.of<Page1Notifier>(context, listen: false)
                           .subtractProductQty(index);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.remove,
                     ),
                   ),
@@ -95,7 +95,7 @@ class _Page1State extends State<Page1> {
                       Provider.of<Page1Notifier>(context, listen: false)
                           .addProductQty(index);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add,
                     ),
                   ),
@@ -123,7 +123,7 @@ class _Page1State extends State<Page1> {
 
     Navigator.pushNamed(
       context,
-      Page2.ROUTE_NAME,
+      Page2.routeName,
       arguments: arguments,
     );
   }
@@ -133,19 +133,19 @@ class _Page1State extends State<Page1> {
       builder: (context, data, child) {
         return Row(
           children: [
-            Text(
+            const Text(
               'totalQty',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             Text(
               data.totalQtyCheckoutList().toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
@@ -189,12 +189,12 @@ class _Page1State extends State<Page1> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text(
+        title: const Text(
           'Page 1',
         ),
         actions: [
           _buildTotalCheckoutQty(),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
         automaticallyImplyLeading: false,
       ),

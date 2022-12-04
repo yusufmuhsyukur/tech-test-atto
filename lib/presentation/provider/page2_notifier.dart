@@ -9,7 +9,7 @@ class Page2Notifier extends ChangeNotifier {
   List<Product> _checkoutList = [];
   List<Product> get checkoutList => _checkoutList;
 
-  String _message = '';
+  final String _message = '';
   String get message => _message;
 
   Future<void> setChekoutList(List<Product> checkoutList) async {
@@ -24,9 +24,9 @@ class Page2Notifier extends ChangeNotifier {
 
   int totalQtyCheckoutList() {
     int total = 0;
-    _checkoutList.forEach((value) {
+    for (var value in _checkoutList) {
       total = total + value.qty;
-    });
+    }
     return total;
   }
 }

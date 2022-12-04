@@ -5,11 +5,11 @@ import 'package:tech_test_atto/presentation/pages/page2_page.dart';
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Page1.ROUTE_NAME:
+      case Page1.routeName:
         return MaterialPageRoute(
           builder: (_) => const Page1(),
         );
-      case Page2.ROUTE_NAME:
+      case Page2.routeName:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => Page2(
