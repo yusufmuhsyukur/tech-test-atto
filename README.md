@@ -1,16 +1,18 @@
 # tech_test_atto
 
-A new Flutter project.
+## Pre-requisite
 
-## Getting Started
+1. [Install](https://docs.flutter.dev/get-started/install) Flutter latest stable (if you already installed another version, you can use [fvm](https://fvm.app/))
+2. `flutter doctor -v` make sure the all requirement are catered
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+1. From the terminal: Run `flutter pub get`
+2. Run `flutter pub run build_runner build --delete-conflicting-outputs` to update generated files
+3. `fluter run`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Testing
+1. From the terminal: Run `flutter test`
+2. You can also see view the coverage report on `index.html` and `lcov.info` in `coverage` folder
+
