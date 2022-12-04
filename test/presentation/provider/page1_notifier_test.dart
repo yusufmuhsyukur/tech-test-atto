@@ -66,8 +66,6 @@ void main() {
       // arrange
       when(mockGetProducts.execute())
           .thenAnswer((_) async => Right(testProductList));
-      notifier.checkoutList = {};
-
       // act
       await notifier.fetchProducts();
       notifier.addProductQty(0);
@@ -82,17 +80,16 @@ void main() {
       // arrange
       when(mockGetProducts.execute())
           .thenAnswer((_) async => Right(testProductList));
-      notifier.checkoutList = {};
 
       // act
       await notifier.fetchProducts();
       notifier.addProductQty(0);
 
       int productId = notifier.products[0].id;
-      bool isAddedToCheckoutList = notifier.checkoutList[productId] != null;
+      bool isAddedToCheckoutMap = notifier.checkoutMap[productId] != null;
 
       // assert
-      expect(isAddedToCheckoutList, true);
+      expect(isAddedToCheckoutMap, true);
       expect(listenerCallCount, 3);
     });
 
@@ -114,11 +111,11 @@ void main() {
       notifier.addProductQty(0);
 
       int productId = notifier.products[0].id;
-      bool isAddedToCheckoutList = notifier.checkoutList[productId] != null;
-      int productChekcoutQty = notifier.checkoutList[productId]?.qty ?? 0;
+      bool isAddedToCheckoutMap = notifier.checkoutMap[productId] != null;
+      int productChekcoutQty = notifier.checkoutMap[productId]?.qty ?? 0;
 
       // assert
-      expect(isAddedToCheckoutList, true);
+      expect(isAddedToCheckoutMap, true);
       expect(productChekcoutQty, 2);
     });
 
@@ -157,7 +154,6 @@ void main() {
       final testProductList = [testProduct];
       when(mockGetProducts.execute())
           .thenAnswer((_) async => Right(testProductList));
-      notifier.checkoutList = {};
 
       // act
       await notifier.fetchProducts();
@@ -166,12 +162,12 @@ void main() {
 
       int productQty = notifier.products[0].qty;
       int productId = notifier.products[0].id;
-      bool isAddedToCheckoutList = notifier.checkoutList[productId] != null;
+      bool isAddedToCheckoutMap = notifier.checkoutMap[productId] != null;
 
       // assert
       expect(productQty, 0);
       expect(listenerCallCount, 4);
-      expect(isAddedToCheckoutList, false);
+      expect(isAddedToCheckoutMap, false);
     });
   });
 }

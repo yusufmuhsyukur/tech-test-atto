@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_test_atto/domain/entities/product.dart';
-import 'package:tech_test_atto/presentation/pages/page2_page.dart';
-import 'package:tech_test_atto/presentation/provider/page1_notifier.dart';
+import 'package:tech_test_atto/presentation/provider/page2_notifier.dart';
 import 'package:tech_test_atto/utils/state_enum.dart';
 
-class Page1 extends StatefulWidget {
-  const Page1({super.key});
+class Page2 extends StatefulWidget {
+  const Page2({
+    super.key,
+    required this.checkoutList,
+    required this.isPurchased,
+  });
+  final List<Product> checkoutList;
+  final Function(bool) isPurchased;
 
-  static const ROUTE_NAME = '/page1';
+  static const ROUTE_NAME = '/page2';
 
   @override
-  State<Page1> createState() => _Page1State();
+  State<Page2> createState() => _Page2State();
 }
 
-class _Page1State extends State<Page1> {
+class _Page2State extends State<Page2> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<Page1Notifier>(
+      Provider.of<Page2Notifier>(
         context,
         listen: false,
-      ).fetchProducts();
+      ).setChekoutList(widget.checkoutList);
     });
   }
 
@@ -33,6 +38,12 @@ class _Page1State extends State<Page1> {
   }
 
   Widget _buildProductList(List<Product> productList) {
+    if (productList.isEmpty) {
+      return Center(
+        child: Text('Checkout List is Empty'),
+      );
+    }
+
     return ListView.builder(
       itemBuilder: (context, index) {
         final product = productList[index];
@@ -65,7 +76,7 @@ class _Page1State extends State<Page1> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        color: product.qty > 0 ? Colors.blue[100] : Colors.grey[200],
+        color: Colors.grey[200],
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
@@ -78,26 +89,8 @@ class _Page1State extends State<Page1> {
               SizedBox(width: 16),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Provider.of<Page1Notifier>(context, listen: false)
-                          .subtractProductQty(index);
-                    },
-                    icon: Icon(
-                      Icons.remove,
-                    ),
-                  ),
                   Text(
                     product.qty.toString(),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Provider.of<Page1Notifier>(context, listen: false)
-                          .addProductQty(index);
-                    },
-                    icon: Icon(
-                      Icons.add,
-                    ),
                   ),
                 ],
               )
@@ -108,28 +101,8 @@ class _Page1State extends State<Page1> {
     );
   }
 
-  void directToPage2(List<Product> checkoutList) {
-    Map<String, dynamic> arguments = {
-      'checkoutList': checkoutList,
-      'isPurchased': (bool status) {
-        if (status) {
-          Provider.of<Page1Notifier>(
-            context,
-            listen: false,
-          ).fetchProducts();
-        }
-      }
-    };
-
-    Navigator.pushNamed(
-      context,
-      Page2.ROUTE_NAME,
-      arguments: arguments,
-    );
-  }
-
   Widget _buildTotalCheckoutQty() {
-    return Consumer<Page1Notifier>(
+    return Consumer<Page2Notifier>(
       builder: (context, data, child) {
         return Row(
           children: [
@@ -156,32 +129,29 @@ class _Page1State extends State<Page1> {
     );
   }
 
-  Widget _buildChekoutButton() {
-    return Consumer<Page1Notifier>(builder: (context, data, child) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: TextButton(
-          onPressed: () {
-            List<Product> checkoutList = data.checkoutMap.values.toList();
-            directToPage2(checkoutList);
-          },
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.blue,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Checkout'),
-                Text('${data.totalQtyCheckoutList()} Item')
-              ],
-            ),
+  Widget _builPurchaseButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: TextButton(
+        onPressed: () {
+          widget.isPurchased(true);
+          Navigator.pop(context);
+        },
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.blue,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Buy'),
+            ],
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 
   @override
@@ -190,26 +160,27 @@ class _Page1State extends State<Page1> {
       appBar: AppBar(
         centerTitle: false,
         title: Text(
-          'Page 1',
+          'Page 2',
         ),
         actions: [
           _buildTotalCheckoutQty(),
           SizedBox(width: 16),
         ],
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
-      body: Consumer<Page1Notifier>(
+      body: Consumer<Page2Notifier>(
         builder: (context, data, child) {
           if (data.state == RequestState.loading) {
             return _buildLoading();
           } else if (data.state == RequestState.loaded) {
-            return _buildProductList(data.products);
+            return _buildProductList(data.checkoutList);
           } else {
             return _buildError(data.message);
           }
         },
       ),
-      floatingActionButton: _buildChekoutButton(),
+      floatingActionButton:
+          widget.checkoutList.isNotEmpty ? _builPurchaseButton() : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

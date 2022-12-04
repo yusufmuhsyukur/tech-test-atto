@@ -14,15 +14,14 @@ class Page1Notifier extends ChangeNotifier {
   List<Product> _products = [];
   List<Product> get products => _products;
 
-  Map<int, Product> _checkoutList = <int, Product>{};
-  Map<int, Product> get checkoutList => _checkoutList;
-  set checkoutList(Map<int, Product> value) => _checkoutList = value;
+  Map<int, Product> _checkoutMap = <int, Product>{};
+  Map<int, Product> get checkoutMap => _checkoutMap;
 
   String _message = '';
   String get message => _message;
 
   Future<void> fetchProducts() async {
-    _checkoutList = <int, Product>{};
+    _checkoutMap = <int, Product>{};
     _state = RequestState.loading;
     notifyListeners();
 
@@ -67,28 +66,28 @@ class Page1Notifier extends ChangeNotifier {
   }
 
   void saveToCheckoutList(Product product) {
-    _checkoutList[product.id] = product;
+    _checkoutMap[product.id] = product;
   }
 
   void removeFromCheckoutList(Product product) {
-    _checkoutList.remove(product.id);
+    _checkoutMap.remove(product.id);
   }
 
   bool isAddedToCheckoutList(Product product) {
     bool result = false;
-    if (_checkoutList[product.id] != null) {
+    if (_checkoutMap[product.id] != null) {
       result = true;
     }
     return result;
   }
 
   void updateCheckoutList(Product product) {
-    _checkoutList[product.id] = product;
+    _checkoutMap[product.id] = product;
   }
 
   int totalQtyCheckoutList() {
     int total = 0;
-    _checkoutList.forEach((key, value) {
+    _checkoutMap.forEach((key, value) {
       total = total + value.qty;
     });
     return total;

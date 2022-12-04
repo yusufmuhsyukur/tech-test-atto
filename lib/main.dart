@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:tech_test_atto/injection.dart' as di;
 import 'package:tech_test_atto/presentation/pages/page1_page.dart';
 import 'package:tech_test_atto/presentation/provider/page1_notifier.dart';
+import 'package:tech_test_atto/presentation/provider/page2_notifier.dart';
+import 'package:tech_test_atto/router.dart' as router;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,26 +25,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<Page1Notifier>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<Page2Notifier>(),
+        ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         title: 'Flutter Demo',
         initialRoute: Page1.ROUTE_NAME,
-        onGenerateRoute: (RouteSettings settings) {
-          switch (settings.name) {
-            case Page1.ROUTE_NAME:
-              return MaterialPageRoute(
-                builder: (_) => Page1(),
-              );
-            default:
-              return MaterialPageRoute(builder: (_) {
-                return const Scaffold(
-                  body: Center(
-                    child: Text('Page not found :('),
-                  ),
-                );
-              });
-          }
-        },
+        onGenerateRoute: router.Router.onGenerateRoute,
       ),
     );
   }
